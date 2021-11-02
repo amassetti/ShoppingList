@@ -2,9 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
-const config = require('./config');
+const config = require('./src/config');
 
-const items = require('./routes/api/items');
+const items = require('./src/routes/api/items');
 
 const app = express();
 
