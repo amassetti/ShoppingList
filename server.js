@@ -1,14 +1,14 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const config = require('config');
+const config = require('./src/config');
 const app = express();
 
 // Bodyparser Middle-ware
 app.use(express.json());
 
 // DB Config
-const db = config.get('mongoURI');
+const db = config.mongoURI;
 
 // Connect to mongo
 mongoose
@@ -33,6 +33,6 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-const port = config.get('port');
+const port = config.port;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
