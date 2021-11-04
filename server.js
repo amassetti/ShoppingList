@@ -1,27 +1,28 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
-const config = require('./src/config');
-
-const items = require('./src/routes/api/items');
-
+const config = require('config');
 const app = express();
 
 // Bodyparser Middle-ware
-app.use(bodyParser.json());
+app.use(express.json());
 
 // DB Config
-const db = config.mongoURI;
+const db = config.get('mongoURI');
 
 // Connect to mongo
 mongoose
-  .connect(db)
+  .connect(db, {
+    useNewUrlParser: true
+  })
   .then ( () => console.log('MongoDB connected...'))
   .catch (err => console.log(err))
 
-// User routes
-app.use('/api/items', items);
+// Routes
+app.use('/api/items', require('./src/routes/api/items'));
+app.use('/api/users', require('./src/routes/api/users'));
+app.use('/api/auth', require('./src/routes/api/auth'));
+
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
@@ -32,6 +33,6 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-const port = config.port;
+const port = config.get('port');
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

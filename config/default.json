@@ -1,0 +1,5 @@
+{
+  "port": 5000,
+  "mongoURI": "mongodb+srv://ariel:Asd$123!@mflix.fy047.mongodb.net/test",
+  "jwtSecret": "sl_myJwtSecret"
+}
